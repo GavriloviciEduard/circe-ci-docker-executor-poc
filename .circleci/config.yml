@@ -1,0 +1,19 @@
+version: 2.1
+
+jobs:
+    build:
+        docker:
+            - image: mcr.microsoft.com/windows/nanoserver:ltsc2025
+        steps:
+            - run:
+                  name: Print Hello World
+                  command: powershell -Command "Write-Host 'Hello World from Windows nanoserver container!'"
+            - run:
+                  name: Print Image Version
+                  command: powershell -Command "$env:OS; Get-ComputerInfo -Property OsVersion,OsName,WindowsVersion | Format-List"
+
+workflows:
+    version: 2
+    build-workflow:
+        jobs:
+            - build
